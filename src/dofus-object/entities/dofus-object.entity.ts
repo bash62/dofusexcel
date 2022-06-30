@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { DofusCategorie } from '../../dofus-categorie/entities/dofus-categorie.entity';
 import { DofusRessource } from '../../dofus-ressource/entities/dofus-ressouce.entity';
+import {DofusMonster} from "../../dofus-monster/entities/dofus-monster.entity";
 
 @Entity()
 @InterfaceType({

@@ -36,19 +36,34 @@ type DofusRessource implements DofusObject {
   craftable: Boolean!
 }
 
+type DofusMonster implements DofusObject {
+  id: ID!
+  level: [Int!]!
+  name: String!
+  type: String!
+  url: String!
+  img: String
+  ingameState: Boolean!
+  categorieId: Int!
+  categorie: DofusCategorie!
+  dofusObject: [DofusObject!]!
+  isDead: Boolean!
+  mangeable: Boolean!
+}
+
 type Query {
   dofusObjects: [DofusObject!]!
   dofusCategories: [DofusCategorie!]!
   dofusCategorie(id: Int!): DofusCategorie!
-  findAllDofusRessources: [DofusRessource!]!
-  findOneDofusRessourceById(id: Int!): DofusRessource!
+  findAllDofusRessources: [DofusMonster!]!
+  findOneDofusRessourceById(id: Int!): DofusMonster!
 }
 
 type Mutation {
   createDofusCategorie(createDofusCategorieInput: CreateDofusCategorieInput!): DofusCategorie!
   updateDofusCategorie(updateDofusCategorieInput: UpdateDofusCategorieInput!): DofusCategorie!
   removeDofusCategorie(id: Int!): DofusCategorie!
-  createDofusRessource(createDofusRessource: CreateDofusRessourceInput!): DofusRessource!
+  createDofusRessource(createDofusRessource: CreateDofusMonsterInput!): DofusMonster!
 }
 
 input CreateDofusCategorieInput {
@@ -60,9 +75,9 @@ input UpdateDofusCategorieInput {
   id: Int!
 }
 
-input CreateDofusRessourceInput {
-  lootable: Boolean = false
-  craftable: Boolean = false
+input CreateDofusMonsterInput {
+  isDead: Boolean = false
+  mangeable: Boolean = false
   level: [Int!]!
   name: String!
   type: String!

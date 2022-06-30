@@ -11,6 +11,7 @@ import config from './ormconfig';
 import { DofusObject } from './dofus-object/entities/dofus-object.entity';
 import { DofusRessource } from './dofus-ressource/entities/dofus-ressouce.entity';
 import { DofusCategorie } from './dofus-categorie/entities/dofus-categorie.entity';
+import { DofusMonsterModule } from './dofus-monster/dofus-monster.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { DofusCategorie } from './dofus-categorie/entities/dofus-categorie.entit
     }),
     DofusObjectModule,
     DofusRessourceModule,
+    DofusMonsterModule,
     DofusCategorieModule,
   ],
   controllers: [AppController],
