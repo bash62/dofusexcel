@@ -8,6 +8,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DofusCategorieModule } from './dofus-categorie/dofus-categorie.module';
 import { DofusObjectModule } from './dofus-object/dofus-object.module';
 import config from './ormconfig';
+import { DofusObject } from './dofus-object/entities/dofus-object.entity';
+import { DofusRessource } from './dofus-ressource/entities/dofus-ressouce.entity';
+import { DofusCategorie } from './dofus-categorie/entities/dofus-categorie.entity';
 
 @Module({
   imports: [
@@ -15,7 +18,6 @@ import config from './ormconfig';
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
     }),
-    DofusRessourceModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: config.host,
@@ -23,11 +25,13 @@ import config from './ormconfig';
       username: config.username,
       password: config.password,
       database: config.database,
-      entities: ['dist/**/*.entity.js'],
+      entities: [DofusObject, DofusRessource, DofusCategorie],
       synchronize: true,
+      logging: true,
     }),
-    DofusCategorieModule,
     DofusObjectModule,
+    DofusRessourceModule,
+    DofusCategorieModule,
   ],
   controllers: [AppController],
   providers: [AppService],

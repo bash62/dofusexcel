@@ -7,7 +7,7 @@ import {
   ResolveField,
   Int,
 } from '@nestjs/graphql';
-import { DofusRessource } from './dofusRessouce.entity';
+import { DofusRessource } from './entities/dofus-ressouce.entity';
 import { DofusRessourceService } from './dofus-ressource.service';
 import { CreateDofusRessourceInput } from './dto/createDofusRessource.input';
 import { DofusCategorie } from '../dofus-categorie/entities/dofus-categorie.entity';
@@ -16,24 +16,26 @@ import { DofusObjectService } from '../dofus-object/dofus-object.service';
 @Resolver((of) => DofusRessource)
 export class DofusRessourceResolver {
   constructor(
-    private dofusService: DofusRessourceService,
+    private dofusRessourceService: DofusRessourceService,
     private readonly dofusObjectService: DofusObjectService,
   ) {}
 
   @Query((returns) => [DofusRessource])
-  ressource(): Promise<DofusRessource[]> {
-    return this.dofusService.findAll();
+  findAllDofusRessources(): Promise<DofusRessource[]> {
+    return this.dofusRessourceService.findAll();
   }
   @Mutation((returns) => DofusRessource)
   createDofusRessource(
     @Args('createDofusRessource')
     createDofusRessourceInput: CreateDofusRessourceInput,
   ): Promise<DofusRessource> {
-    return this.dofusService.createDofusRessource(createDofusRessourceInput);
+    return this.dofusRessourceService.createDofusRessource(
+      createDofusRessourceInput,
+    );
   }
 
-  @Query(() => DofusCategorie, { name: 'getDofusObject' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => DofusRessource)
+  findOneDofusRessourceById(@Args('id', { type: () => Int }) id: number) {
     return this.dofusObjectService.findOne(id);
   }
 }

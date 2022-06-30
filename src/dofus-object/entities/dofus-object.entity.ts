@@ -1,27 +1,28 @@
-import { ObjectType, Field, Int, ID, InterfaceType } from '@nestjs/graphql';
+import { Field, ID, Int, InterfaceType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   TableInheritance,
 } from 'typeorm';
 import { DofusCategorie } from '../../dofus-categorie/entities/dofus-categorie.entity';
-import { DofusRessource } from '../../dofus-ressource/dofusRessouce.entity';
+import { DofusRessource } from '../../dofus-ressource/entities/dofus-ressouce.entity';
 
 @Entity()
 @InterfaceType({
-  resolveType(dofusObject,context,info) {
-    if (dofusObject.lootable) {
-      return DofusRessource
+  resolveType(dofusObject, context, info) {
+    if (dofusObject instanceof DofusRessource) {
+      return DofusRessource;
     }
     return DofusObject;
   },
 })
-@TableInheritance({ column: { type: 'varchar', name: 'dofusObject' } })
-export  class DofusObject {
+@TableInheritance({
+  column: { type: 'varchar', name: 'dofusObject' },
+})
+export abstract class DofusObject {
   @PrimaryGeneratedColumn()
   @Field((type) => ID)
   id: number;
@@ -29,7 +30,6 @@ export  class DofusObject {
   @Column({ type: 'json', default: null })
   @Field((type) => [Int!])
   level: number[];
-
 
   @Column({ unique: false })
   @Field((type) => String)
@@ -55,7 +55,10 @@ export  class DofusObject {
   @Field((type) => Int)
   categorieId: number;
 
-  @ManyToOne(() => DofusCategorie, (dofusCategorie) => dofusCategorie.id)
+  @ManyToOne(
+    () => DofusCategorie,
+    (dofusCategorie) => dofusCategorie.dofusObjects,
+  )
   @JoinColumn()
   @Field((type) => DofusCategorie, { nullable: false })
   categorie: DofusCategorie;

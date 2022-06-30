@@ -6,7 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DofusCategorieService } from '../dofus-categorie/dofus-categorie.service';
 import { DofusObject } from './entities/dofus-object.entity';
-import { DofusRessource } from "../dofus-ressource/dofusRessouce.entity";
+import { DofusRessource } from "../dofus-ressource/entities/dofus-ressouce.entity";
 
 @Injectable()
 export class DofusObjectService {

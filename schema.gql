@@ -12,13 +12,13 @@ interface DofusObject {
   ingameState: Boolean!
   categorieId: Int!
   categorie: DofusCategorie!
-  getObject: [DofusObject!]!
+  dofusObject: [DofusObject!]!
 }
 
 type DofusCategorie {
   id: ID!
   name: String!
-  dofusObject: DofusObject
+  dofusObjects: [DofusObject!]
 }
 
 type DofusRessource implements DofusObject {
@@ -31,36 +31,24 @@ type DofusRessource implements DofusObject {
   ingameState: Boolean!
   categorieId: Int!
   categorie: DofusCategorie!
-  getObject: [DofusObject!]!
+  dofusObject: [DofusObject!]!
   lootable: Boolean!
   craftable: Boolean!
 }
 
 type Query {
-  ressource: [DofusRessource!]!
-  getDofusObject(id: Int!): DofusCategorie!
   dofusObjects: [DofusObject!]!
   dofusCategories: [DofusCategorie!]!
   dofusCategorie(id: Int!): DofusCategorie!
+  findAllDofusRessources: [DofusRessource!]!
+  findOneDofusRessourceById(id: Int!): DofusRessource!
 }
 
 type Mutation {
-  createDofusRessource(createDofusRessource: CreateDofusRessourceInput!): DofusRessource!
   createDofusCategorie(createDofusCategorieInput: CreateDofusCategorieInput!): DofusCategorie!
   updateDofusCategorie(updateDofusCategorieInput: UpdateDofusCategorieInput!): DofusCategorie!
   removeDofusCategorie(id: Int!): DofusCategorie!
-}
-
-input CreateDofusRessourceInput {
-  level: [Int!]!
-  name: String!
-  type: String!
-  url: String!
-  img: String
-  ingameState: Boolean = false
-  categorieId: Int!
-  lootable: Boolean = false
-  craftable: Boolean = false
+  createDofusRessource(createDofusRessource: CreateDofusRessourceInput!): DofusRessource!
 }
 
 input CreateDofusCategorieInput {
@@ -70,4 +58,16 @@ input CreateDofusCategorieInput {
 input UpdateDofusCategorieInput {
   name: String
   id: Int!
+}
+
+input CreateDofusRessourceInput {
+  lootable: Boolean = false
+  craftable: Boolean = false
+  level: [Int!]!
+  name: String!
+  type: String!
+  url: String!
+  img: String
+  ingameState: Boolean = false
+  categorieId: Int!
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DofusRessource } from './dofusRessouce.entity';
+import { DofusRessource } from './entities/dofus-ressouce.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateDofusRessourceInput } from './dto/createDofusRessource.input';
@@ -12,6 +12,7 @@ export class DofusRessourceService {
     @InjectRepository(DofusRessource)
     private dofusRepository: Repository<DofusRessource>,
   ) {}
+
   createDofusRessource(
     createDofusRessourceInput: CreateDofusRessourceInput,
   ): Promise<DofusRessource> {
@@ -22,8 +23,6 @@ export class DofusRessourceService {
     return this.dofusRepository.save(newDofusRessource);
   }
   async findAll(): Promise<DofusRessource[]> {
-    return this.dofusRepository.find({relations: ['categorie']});
+    return this.dofusRepository.find({ relations: ['categorie'] });
   }
-
-
 }
