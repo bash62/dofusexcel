@@ -9,8 +9,8 @@ import {DofusObject} from "../dofus-object/entities/dofus-object.entity";
 export class DofusRessource extends DofusObject{
 
 
-  @Column({ default: false })
-  @Field((type) => Boolean, { defaultValue: false })
+  @Column({ default: true })
+  @Field((type) => Boolean, { defaultValue: true })
   lootable: boolean;
 
   @Column({ default: false })

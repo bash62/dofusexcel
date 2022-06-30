@@ -5,23 +5,33 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn, TableInheritance,
+  PrimaryGeneratedColumn,
+  TableInheritance,
 } from 'typeorm';
 import { DofusCategorie } from '../../dofus-categorie/entities/dofus-categorie.entity';
+import { DofusRessource } from '../../dofus-ressource/dofusRessouce.entity';
 
 @Entity()
-@InterfaceType()
-@TableInheritance({ column: { type: "varchar", name: "dofusObject" } })
-export abstract class DofusObject {
+@InterfaceType({
+  resolveType(dofusObject,context,info) {
+    if (dofusObject.lootable) {
+      return DofusRessource
+    }
+    return DofusObject;
+  },
+})
+@TableInheritance({ column: { type: 'varchar', name: 'dofusObject' } })
+export  class DofusObject {
   @PrimaryGeneratedColumn()
   @Field((type) => ID)
   id: number;
 
-  @Column({type: 'json', default: null})
+  @Column({ type: 'json', default: null })
   @Field((type) => [Int!])
   level: number[];
 
-  @Column({unique: false})
+
+  @Column({ unique: false })
   @Field((type) => String)
   name: string;
 
@@ -29,16 +39,16 @@ export abstract class DofusObject {
   @Field((type) => String)
   type: string;
 
-  @Column({unique: false})
+  @Column({ unique: false })
   @Field((type) => String)
   url: string;
 
-  @Column({nullable: true})
-  @Field((type) => String, {nullable: true})
+  @Column({ nullable: true })
+  @Field((type) => String, { nullable: true })
   img: string;
 
-  @Column({default: false})
-  @Field((type) => Boolean, {defaultValue: false})
+  @Column({ default: false })
+  @Field((type) => Boolean, { defaultValue: false })
   ingameState: boolean;
 
   @Column()
@@ -47,6 +57,6 @@ export abstract class DofusObject {
 
   @ManyToOne(() => DofusCategorie, (dofusCategorie) => dofusCategorie.id)
   @JoinColumn()
-  @Field((type) => DofusCategorie, {nullable: false})
+  @Field((type) => DofusCategorie, { nullable: false })
   categorie: DofusCategorie;
 }

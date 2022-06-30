@@ -12,6 +12,7 @@ interface DofusObject {
   ingameState: Boolean!
   categorieId: Int!
   categorie: DofusCategorie!
+  getObject: [DofusObject!]!
 }
 
 type DofusCategorie {
@@ -30,22 +31,21 @@ type DofusRessource implements DofusObject {
   ingameState: Boolean!
   categorieId: Int!
   categorie: DofusCategorie!
+  getObject: [DofusObject!]!
   lootable: Boolean!
   craftable: Boolean!
 }
 
 type Query {
   ressource: [DofusRessource!]!
-  dofusObjects: [DofusObject!]!
   getDofusObject(id: Int!): DofusCategorie!
-  getCategorie(id: Int!): DofusCategorie!
+  dofusObjects: [DofusObject!]!
   dofusCategories: [DofusCategorie!]!
   dofusCategorie(id: Int!): DofusCategorie!
 }
 
 type Mutation {
   createDofusRessource(createDofusRessource: CreateDofusRessourceInput!): DofusRessource!
-  createDofusObject(createDofusObjectInput: CreateDofusObjectInput!): DofusObject!
   createDofusCategorie(createDofusCategorieInput: CreateDofusCategorieInput!): DofusCategorie!
   updateDofusCategorie(updateDofusCategorieInput: UpdateDofusCategorieInput!): DofusCategorie!
   removeDofusCategorie(id: Int!): DofusCategorie!
@@ -61,16 +61,6 @@ input CreateDofusRessourceInput {
   categorieId: Int!
   lootable: Boolean = false
   craftable: Boolean = false
-}
-
-input CreateDofusObjectInput {
-  level: [Int!]!
-  name: String!
-  type: String!
-  url: String!
-  img: String
-  ingameState: Boolean = false
-  categorieId: Int!
 }
 
 input CreateDofusCategorieInput {

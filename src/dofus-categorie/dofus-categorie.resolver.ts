@@ -1,9 +1,10 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent, Info } from "@nestjs/graphql";
 import { DofusCategorieService } from './dofus-categorie.service';
 import { DofusCategorie } from './entities/dofus-categorie.entity';
 import { CreateDofusCategorieInput } from './dto/create-dofus-categorie.input';
 import { UpdateDofusCategorieInput } from './dto/update-dofus-categorie.input';
 import {DofusObjectService} from "../dofus-object/dofus-object.service";
+import { DofusObject } from "../dofus-object/entities/dofus-object.entity";
 
 @Resolver(() => DofusCategorie)
 export class DofusCategorieResolver {
@@ -44,4 +45,7 @@ export class DofusCategorieResolver {
   removeDofusCategorie(@Args('id', { type: () => Int }) id: number) {
     return this.dofusCategorieService.remove(id);
   }
+
+
+
 }
