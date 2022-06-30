@@ -1,0 +1,83 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+interface DofusObject {
+  id: ID!
+  level: [Int!]!
+  name: String!
+  type: String!
+  url: String!
+  img: String
+  ingameState: Boolean!
+  categorieId: Int!
+  categorie: DofusCategorie!
+}
+
+type DofusCategorie {
+  id: ID!
+  name: String!
+  dofusObject: DofusObject
+}
+
+type DofusRessource implements DofusObject {
+  id: ID!
+  level: [Int!]!
+  name: String!
+  type: String!
+  url: String!
+  img: String
+  ingameState: Boolean!
+  categorieId: Int!
+  categorie: DofusCategorie!
+  lootable: Boolean!
+  craftable: Boolean!
+}
+
+type Query {
+  ressource: [DofusRessource!]!
+  dofusObjects: [DofusObject!]!
+  getDofusObject(id: Int!): DofusCategorie!
+  getCategorie(id: Int!): DofusCategorie!
+  dofusCategories: [DofusCategorie!]!
+  dofusCategorie(id: Int!): DofusCategorie!
+}
+
+type Mutation {
+  createDofusRessource(createDofusRessource: CreateDofusRessourceInput!): DofusRessource!
+  createDofusObject(createDofusObjectInput: CreateDofusObjectInput!): DofusObject!
+  createDofusCategorie(createDofusCategorieInput: CreateDofusCategorieInput!): DofusCategorie!
+  updateDofusCategorie(updateDofusCategorieInput: UpdateDofusCategorieInput!): DofusCategorie!
+  removeDofusCategorie(id: Int!): DofusCategorie!
+}
+
+input CreateDofusRessourceInput {
+  level: [Int!]!
+  name: String!
+  type: String!
+  url: String!
+  img: String
+  ingameState: Boolean = false
+  categorieId: Int!
+  lootable: Boolean = false
+  craftable: Boolean = false
+}
+
+input CreateDofusObjectInput {
+  level: [Int!]!
+  name: String!
+  type: String!
+  url: String!
+  img: String
+  ingameState: Boolean = false
+  categorieId: Int!
+}
+
+input CreateDofusCategorieInput {
+  name: String!
+}
+
+input UpdateDofusCategorieInput {
+  name: String
+  id: Int!
+}
