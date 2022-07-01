@@ -4,7 +4,6 @@ import { UpdateDofusCategorieInput } from './dto/update-dofus-categorie.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DofusCategorie } from './entities/dofus-categorie.entity';
-import { DofusObjectService } from '../dofus-object/dofus-object.service';
 
 @Injectable()
 export class DofusCategorieService {
@@ -22,14 +21,14 @@ export class DofusCategorieService {
   }
   async findAll(): Promise<DofusCategorie[]> {
     return this.dofusCategorieRepository.find({
-      relations: ['dofusObjects'],
+      relations: ['dofusMonster', 'dofusRessources'],
     });
   }
 
   findOne(id: number): Promise<DofusCategorie> {
     return this.dofusCategorieRepository.findOne({
       where: [{ id: id }],
-      relations: ['dofusObjects'],
+      relations: ['dofusMonster', 'dofusRessources'],
     });
   }
 

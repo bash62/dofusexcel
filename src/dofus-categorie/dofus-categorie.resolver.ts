@@ -12,8 +12,6 @@ import { DofusCategorieService } from './dofus-categorie.service';
 import { DofusCategorie } from './entities/dofus-categorie.entity';
 import { CreateDofusCategorieInput } from './dto/create-dofus-categorie.input';
 import { UpdateDofusCategorieInput } from './dto/update-dofus-categorie.input';
-import { DofusObjectService } from '../dofus-object/dofus-object.service';
-import { DofusObject } from '../dofus-object/entities/dofus-object.entity';
 
 @Resolver(() => DofusCategorie)
 export class DofusCategorieResolver {

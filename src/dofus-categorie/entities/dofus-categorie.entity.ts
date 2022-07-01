@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID, createUnionType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -6,7 +6,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { DofusObject } from '../../dofus-object/entities/dofus-object.entity';
+import { DofusMonster } from '../../dofus-monster/entities/dofus-monster.entity';
+import { DofusRessource } from '../../dofus-ressource/entities/dofus-ressouce.entity';
 
 @Entity()
 @ObjectType()
@@ -19,7 +20,11 @@ export class DofusCategorie {
   @Field(() => String)
   name: string;
 
-  @OneToMany(() => DofusObject, (dofusObject) => dofusObject.categorie)
-  @Field(() => [DofusObject], { nullable: true })
-  dofusObjects?: DofusObject[];
+  @OneToMany(() => DofusRessource, (dofusObject) => dofusObject.categorie)
+  @Field(() => [DofusRessource], { nullable: true })
+  dofusRessources?: DofusRessource[];
+
+  @OneToMany(() => DofusMonster, (dofusObject) => dofusObject.categorie)
+  @Field(() => [DofusMonster], { nullable: true })
+  dofusMonster?: DofusMonster[];
 }

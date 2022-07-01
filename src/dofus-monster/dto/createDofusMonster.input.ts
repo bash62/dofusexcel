@@ -1,8 +1,7 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
-import { CreateDofusObjectInput } from '../../dofus-object/dto/create-dofus-object.input';
 
 @InputType()
-export class CreateDofusMonsterInput implements CreateDofusObjectInput {
+export class CreateDofusMonsterInput {
   @Field((type) => Boolean, { defaultValue: false })
   isDead: boolean;
 

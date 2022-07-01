@@ -6,12 +6,14 @@ import { DofusRessourceModule } from './dofus-ressource/dofus-ressource.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DofusCategorieModule } from './dofus-categorie/dofus-categorie.module';
-import { DofusObjectModule } from './dofus-object/dofus-object.module';
 import config from './ormconfig';
-import { DofusObject } from './dofus-object/entities/dofus-object.entity';
 import { DofusRessource } from './dofus-ressource/entities/dofus-ressouce.entity';
 import { DofusCategorie } from './dofus-categorie/entities/dofus-categorie.entity';
 import { DofusMonsterModule } from './dofus-monster/dofus-monster.module';
+import {DofusMonster} from "./dofus-monster/entities/dofus-monster.entity";
+import { DofusRecipesModule } from './dofus-recipes/dofus-recipes.module';
+import { DofusWeaponsModule } from './dofus-weapons/dofus-weapons.module';
+import { DofusIngredientsModule } from './dofus-ingredients/dofus-ingredients.module';
 
 @Module({
   imports: [
@@ -26,14 +28,16 @@ import { DofusMonsterModule } from './dofus-monster/dofus-monster.module';
       username: config.username,
       password: config.password,
       database: config.database,
-      entities: [DofusObject, DofusRessource, DofusCategorie],
+      entities: ['dist/**/*.entity.js'],
       synchronize: true,
       logging: true,
     }),
-    DofusObjectModule,
     DofusRessourceModule,
     DofusMonsterModule,
     DofusCategorieModule,
+    DofusRecipesModule,
+    DofusWeaponsModule,
+    DofusIngredientsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

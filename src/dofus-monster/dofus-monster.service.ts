@@ -3,8 +3,6 @@ import { DofusMonster } from './entities/dofus-monster.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateDofusMonsterInput } from './dto/createDofusMonster.input';
-import { DofusCategorieService } from '../dofus-categorie/dofus-categorie.service';
-import { DofusCategorie } from '../dofus-categorie/entities/dofus-categorie.entity';
 
 @Injectable()
 export class DofusMonsterService {
@@ -13,16 +11,23 @@ export class DofusMonsterService {
     private dofusRepository: Repository<DofusMonster>,
   ) {}
 
-  createDofusRessource(
-    createDofusRessourceInput: CreateDofusMonsterInput,
+  createDofusMonster(
+    createDofusMonsterInput: CreateDofusMonsterInput,
   ): Promise<DofusMonster> {
-    const newDofusRessource = this.dofusRepository.create(
-      createDofusRessourceInput,
+    const newDofusMonster = this.dofusRepository.create(
+      createDofusMonsterInput,
     );
 
-    return this.dofusRepository.save(newDofusRessource);
+    return this.dofusRepository.save(newDofusMonster);
   }
   async findAll(): Promise<DofusMonster[]> {
     return this.dofusRepository.find({ relations: ['categorie'] });
+  }
+
+  async findOne(id: number) {
+    return this.dofusRepository.findOne({
+      where: [{ id: id }],
+      relations: ['categorie'],
+    });
   }
 }

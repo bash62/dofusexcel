@@ -25,4 +25,11 @@ export class DofusRessourceService {
   async findAll(): Promise<DofusRessource[]> {
     return this.dofusRepository.find({ relations: ['categorie'] });
   }
+
+  async findOne(id: number) {
+    return this.dofusRepository.findOne({
+      where: [{ id: id }],
+      relations: ['categorie'],
+    });
+  }
 }

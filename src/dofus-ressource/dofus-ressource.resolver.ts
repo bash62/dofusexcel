@@ -11,13 +11,11 @@ import { DofusRessource } from './entities/dofus-ressouce.entity';
 import { DofusRessourceService } from './dofus-ressource.service';
 import { CreateDofusRessourceInput } from './dto/createDofusRessource.input';
 import { DofusCategorie } from '../dofus-categorie/entities/dofus-categorie.entity';
-import { DofusObjectService } from '../dofus-object/dofus-object.service';
 
 @Resolver((of) => DofusRessource)
 export class DofusRessourceResolver {
   constructor(
     private dofusRessourceService: DofusRessourceService,
-    private readonly dofusObjectService: DofusObjectService,
   ) {}
 
   @Query((returns) => [DofusRessource])
@@ -34,8 +32,10 @@ export class DofusRessourceResolver {
     );
   }
 
+
+
   @Query(() => DofusRessource)
   findOneDofusRessourceById(@Args('id', { type: () => Int }) id: number) {
-    return this.dofusObjectService.findOne(id);
+    return this.dofusRessourceService.findOne(id);
   }
 }

@@ -10,32 +10,27 @@ import {
 import { DofusMonster } from './entities/dofus-monster.entity';
 import { DofusMonsterService } from './dofus-monster.service';
 import { CreateDofusMonsterInput } from './dto/createDofusMonster.input';
-import { DofusCategorie } from '../dofus-categorie/entities/dofus-categorie.entity';
-import { DofusObjectService } from '../dofus-object/dofus-object.service';
 
 @Resolver((of) => DofusMonster)
 export class DofusMonsterResolver {
   constructor(
-    private dofusRessourceService: DofusMonsterService,
-    private readonly dofusObjectService: DofusObjectService,
+    private dofusMonsterService: DofusMonsterService,
   ) {}
 
   @Query((returns) => [DofusMonster])
-  findAllDofusRessources(): Promise<DofusMonster[]> {
-    return this.dofusRessourceService.findAll();
+  findAllDofusMonsters(): Promise<DofusMonster[]> {
+    return this.dofusMonsterService.findAll();
   }
   @Mutation((returns) => DofusMonster)
-  createDofusRessource(
-    @Args('createDofusRessource')
-    createDofusRessourceInput: CreateDofusMonsterInput,
+  createDofusMonster(
+    @Args('createDofusMonster')
+    createDofusMonsterInput: CreateDofusMonsterInput,
   ): Promise<DofusMonster> {
-    return this.dofusRessourceService.createDofusRessource(
-      createDofusRessourceInput,
-    );
+    return this.dofusMonsterService.createDofusMonster(createDofusMonsterInput);
   }
 
   @Query(() => DofusMonster)
-  findOneDofusRessourceById(@Args('id', { type: () => Int }) id: number) {
-    return this.dofusObjectService.findOne(id);
+  findOneDofusMonsterById(@Args('id', { type: () => Int }) id: number) {
+    return this.dofusMonsterService.findOne(id);
   }
 }
