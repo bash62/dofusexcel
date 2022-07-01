@@ -7,13 +7,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DofusCategorieModule } from './dofus-categorie/dofus-categorie.module';
 import config from './ormconfig';
-import { DofusRessource } from './dofus-ressource/entities/dofus-ressouce.entity';
-import { DofusCategorie } from './dofus-categorie/entities/dofus-categorie.entity';
 import { DofusMonsterModule } from './dofus-monster/dofus-monster.module';
-import {DofusMonster} from "./dofus-monster/entities/dofus-monster.entity";
-import { DofusRecipesModule } from './dofus-recipes/dofus-recipes.module';
 import { DofusWeaponsModule } from './dofus-weapons/dofus-weapons.module';
-import { DofusIngredientsModule } from './dofus-ingredients/dofus-ingredients.module';
+import { DofusRecipesModule } from './dofus-recipes/dofus-recipes.module';
+import { DofusQuantitiesModule } from './dofus-quantities/dofus-quantities.module';
 
 @Module({
   imports: [
@@ -36,9 +33,8 @@ import { DofusIngredientsModule } from './dofus-ingredients/dofus-ingredients.mo
     DofusMonsterModule,
     DofusCategorieModule,
     DofusRecipesModule,
-    DofusWeaponsModule,
-    DofusIngredientsModule,
-  ],
+    DofusQuantitiesModule,
+      ],
   controllers: [AppController],
   providers: [AppService],
 })

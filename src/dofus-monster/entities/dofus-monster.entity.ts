@@ -20,6 +20,10 @@ export class DofusMonster {
   @Field((type) => [Int!])
   level: number[];
 
+  @Column({ type: 'json', default: null })
+  @Field((type) => [String!],{nullable:true, defaultValue:null})
+  zone: string[];
+
   @Column({ unique: false })
   @Field((type) => String)
   name: string;

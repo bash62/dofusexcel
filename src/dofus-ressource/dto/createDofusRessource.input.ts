@@ -23,9 +23,12 @@ export class CreateDofusRessourceInput {
   @Field((type) => String, { nullable: true })
   img?: string;
 
-  @Field((type) => Boolean, { defaultValue: false })
+  @Field((type) => Boolean, { defaultValue: true })
   ingameState: boolean;
 
   @Field((type) => Int)
   categorieId: number;
+
+  @Field((type) => Int,{defaultValue: null,nullable:true})
+  recipeId?: number;
 }

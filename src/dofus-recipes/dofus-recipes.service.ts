@@ -1,15 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { CreateDofusRecipeInput } from './dto/create-dofus-recipe.input';
 import { UpdateDofusRecipeInput } from './dto/update-dofus-recipe.input';
+import { Repository } from 'typeorm';
+import { DofusRecipe } from './entities/dofus-recipe.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { CreateDofusRessourceInput } from '../dofus-ressource/dto/createDofusRessource.input';
+import { DofusRessource } from '../dofus-ressource/entities/dofus-ressouce.entity';
 
 @Injectable()
 export class DofusRecipesService {
-  create(createDofusRecipeInput: CreateDofusRecipeInput) {
-    return 'This action adds a new dofusRecipe';
-  }
+  constructor(
+    @InjectRepository(DofusRecipe)
+    private dofusRepository: Repository<DofusRecipe>,
+  ) {}
 
-  findAll() {
-    return `This action returns all dofusRecipes`;
+  createDofusRecipe(
+    createDofusRecipeInput: CreateDofusRecipeInput,
+  ): Promise<DofusRecipe> {
+    const newDofusRessource = this.dofusRepository.create(
+      createDofusRecipeInput,
+    );
+
+    return this.dofusRepository.save(newDofusRessource);
+  }
+  findAll(): Promise<DofusRecipe[]> {
+    return this.dofusRepository.find({ relations: ['dofusRessources'] });
   }
 
   findOne(id: number) {

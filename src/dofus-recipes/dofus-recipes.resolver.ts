@@ -10,7 +10,7 @@ export class DofusRecipesResolver {
 
   @Mutation(() => DofusRecipe)
   createDofusRecipe(@Args('createDofusRecipeInput') createDofusRecipeInput: CreateDofusRecipeInput) {
-    return this.dofusRecipesService.create(createDofusRecipeInput);
+    return this.dofusRecipesService.createDofusRecipe(createDofusRecipeInput);
   }
 
   @Query(() => [DofusRecipe], { name: 'dofusRecipes' })

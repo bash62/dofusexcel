@@ -11,6 +11,9 @@ export class CreateDofusMonsterInput {
   @Field((type) => [Int!])
   level: number[];
 
+  @Field((type) => [String!],{nullable:true, defaultValue:null})
+  zone?: string[];
+
   @Field((type) => String)
   name: string;
 

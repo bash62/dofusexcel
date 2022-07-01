@@ -3,10 +3,11 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+  ManyToOne, OneToOne,
+  PrimaryGeneratedColumn
+} from "typeorm";
 import { DofusCategorie } from '../../dofus-categorie/entities/dofus-categorie.entity';
+import { DofusRecipe } from "../../dofus-recipes/entities/dofus-recipe.entity";
 
 @Entity()
 @ObjectType()
@@ -42,6 +43,20 @@ export class DofusRessource {
   @Column()
   @Field((type) => Int)
   categorieId: number;
+
+  @Column({default: null})
+  @Field((type) => Int,{defaultValue: null})
+  recipeId?: number;
+
+  @OneToOne(
+    () => DofusRecipe,
+    (dofusRecipe) => dofusRecipe.id,
+  )
+  @JoinColumn()
+  @Field((type) => DofusRecipe, { nullable: true })
+  recipe?: DofusRecipe;
+
+
 
   @ManyToOne(
     () => DofusCategorie,

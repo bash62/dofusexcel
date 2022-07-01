@@ -5,6 +5,7 @@
 type DofusMonster {
   id: ID!
   level: [Int!]!
+  zone: [String!]
   name: String!
   type: String!
   url: String!
@@ -23,6 +24,11 @@ type DofusCategorie {
   dofusMonster: [DofusMonster!]
 }
 
+type DofusRecipe {
+  id: ID!
+  dofusRessources: [DofusRessource!]
+}
+
 type DofusRessource {
   id: ID!
   level: [Int!]!
@@ -32,29 +38,17 @@ type DofusRessource {
   img: String
   ingameState: Boolean!
   categorieId: Int!
+  recipeId: Int!
+  recipe: DofusRecipe
   categorie: DofusCategorie!
   lootable: Boolean!
   craftable: Boolean!
 }
 
-type DofusRecipe {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-type DofusWeapon {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-type DofusIngredient {
+type DofusQuantity {
   id: ID!
-
-  """Quantite"""
   quantity: Int!
-
-  """Resource"""
-  dofusResource: DofusRessource!
+  dofusRessource: DofusRessource!
 }
 
 type Query {
@@ -66,10 +60,8 @@ type Query {
   dofusCategorie(id: Int!): DofusCategorie!
   dofusRecipes: [DofusRecipe!]!
   dofusRecipe(id: Int!): DofusRecipe!
-  dofusWeapons: [DofusWeapon!]!
-  dofusWeapon(id: Int!): DofusWeapon!
-  dofusIngredients: [DofusIngredient!]!
-  dofusIngredient(id: Int!): DofusIngredient!
+  dofusQuantities: [DofusQuantity!]!
+  dofusQuantity(id: Int!): DofusQuantity!
 }
 
 type Mutation {
@@ -81,12 +73,9 @@ type Mutation {
   createDofusRecipe(createDofusRecipeInput: CreateDofusRecipeInput!): DofusRecipe!
   updateDofusRecipe(updateDofusRecipeInput: UpdateDofusRecipeInput!): DofusRecipe!
   removeDofusRecipe(id: Int!): DofusRecipe!
-  createDofusWeapon(createDofusWeaponInput: CreateDofusWeaponInput!): DofusWeapon!
-  updateDofusWeapon(updateDofusWeaponInput: UpdateDofusWeaponInput!): DofusWeapon!
-  removeDofusWeapon(id: Int!): DofusWeapon!
-  createDofusIngredient(createDofusIngredientInput: CreateDofusIngredientInput!): DofusIngredient!
-  updateDofusIngredient(updateDofusIngredientInput: UpdateDofusIngredientInput!): DofusIngredient!
-  removeDofusIngredient(id: Int!): DofusIngredient!
+  createDofusQuantity(createDofusQuantityInput: CreateDofusQuantityInput!): DofusQuantity!
+  updateDofusQuantity(updateDofusQuantityInput: UpdateDofusQuantityInput!): DofusQuantity!
+  removeDofusQuantity(id: Int!): DofusQuantity!
 }
 
 input CreateDofusRessourceInput {
@@ -97,14 +86,16 @@ input CreateDofusRessourceInput {
   type: String!
   url: String!
   img: String
-  ingameState: Boolean = false
+  ingameState: Boolean = true
   categorieId: Int!
+  recipeId: Int = null
 }
 
 input CreateDofusMonsterInput {
   isDead: Boolean = false
   mangeable: Boolean = false
   level: [Int!]!
+  zone: [String!] = null
   name: String!
   type: String!
   url: String!
@@ -124,33 +115,20 @@ input UpdateDofusCategorieInput {
 
 input CreateDofusRecipeInput {
   """Example field (placeholder)"""
-  exampleField: Int!
+  id: Int!
 }
 
 input UpdateDofusRecipeInput {
-  """Example field (placeholder)"""
-  exampleField: Int
   id: Int!
 }
 
-input CreateDofusWeaponInput {
+input CreateDofusQuantityInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
 
-input UpdateDofusWeaponInput {
+input UpdateDofusQuantityInput {
   """Example field (placeholder)"""
   exampleField: Int
-  id: Int!
-}
-
-input CreateDofusIngredientInput {
-  """Quantite"""
-  quantity: Int!
-}
-
-input UpdateDofusIngredientInput {
-  """Quantite"""
-  quantity: Int
   id: Int!
 }
